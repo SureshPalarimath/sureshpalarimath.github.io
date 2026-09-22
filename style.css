@@ -150,3 +150,12 @@ body.dark .research-card, body.dark .patent-grid article, body.dark .journey-car
   .contact-card { flex-direction:column; align-items:flex-start; }
   .footer-wrap { flex-direction:column; }
 }
+
+.profile-links, .contact-links { display:flex; flex-wrap:wrap; gap:10px; margin-top:20px; }
+.profile-links a, .contact-links a { display:inline-block; padding:9px 13px; border:1px solid var(--line); border-radius:10px; color:var(--accent); font-weight:700; font-size:13px; background:var(--surface); }
+.profile-links a:hover, .contact-links a:hover { border-color:var(--accent); transform:translateY(-1px); }
+.funding-highlight { margin-top:28px; padding:22px 25px; background:var(--surface); border:1px solid var(--line); border-radius:16px; display:flex; gap:18px; align-items:center; }
+.funding-highlight strong { color:var(--accent); white-space:nowrap; }
+.funding-highlight span { color:var(--muted); font-size:14px; }
+.small-muted { color:var(--muted); font-size:12px; }
+@media (max-width:600px) { .funding-highlight { flex-direction:column; align-items:flex-start; } }

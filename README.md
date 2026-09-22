@@ -1,30 +1,31 @@
-# Dr. Suresh Palarimath – GitHub Pages Website
+# Dr. Suresh Palarimath – Academic Website
 
-This is a ready-to-publish static academic profile website.
+GitHub Pages website for Dr. Suresh Palarimath.
 
-## Files
+## Main files
 
-- `index.html` – website content and structure
+- `index.html` – website content
 - `style.css` – responsive design
-- `script.js` – mobile navigation, dark mode and current year
-- `assets/` – place future images/CV files here
+- `script.js` – navigation, dark mode and current year
+- `assets/Dr-Suresh-Palarimath-CV.pdf` – downloadable CV
 
-## Publish on GitHub Pages
+## Publish
 
-1. Sign in to GitHub.
-2. Create a new repository named `sureshpalarimath.github.io`.
-3. Upload `index.html`, `style.css`, `script.js`, and the `assets` folder.
-4. Open **Settings → Pages**.
-5. Under **Build and deployment**, select **Deploy from a branch**.
-6. Select the `main` branch and `/ (root)`.
-7. Save.
-8. Your website will normally be available at:
-   `https://sureshpalarimath.github.io/`
+Repository name:
 
-## Recommended next updates
+`SureshPalarimath.github.io`
 
-- Add a professional profile photograph to `assets/`.
-- Add your latest CV PDF and create a Download CV button.
-- Add exact Google Scholar, ORCID, Scopus and ResearchGate URLs.
-- Replace the selected patent list with the complete verified patent list.
-- Add a complete publication database or a selected-publications section.
+GitHub Pages source:
+
+`main` branch → `/ (root)`
+
+Website:
+
+`https://sureshpalarimath.github.io/`
+
+## Academic profiles
+
+- LinkedIn: https://www.linkedin.com/in/sureshpalarimath/
+- Google Scholar: https://scholar.google.com/citations?user=AJLEDX4AAAAJ&hl=en
+- Scopus: https://www.scopus.com/authid/detail.uri?authorId=57487917700
+- ORCID: https://orcid.org/0000-0002-3099-3926
