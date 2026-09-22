@@ -25,6 +25,15 @@
 @media(max-width:760px) {
   .journal-entry p { line-height: 1.55; }
 }
+
+.publication-filters{margin:0 0 26px;padding:18px;background:var(--surface);border:1px solid var(--line);border-radius:14px}
+.filter-row{display:grid;grid-template-columns:minmax(260px,1.8fr) repeat(3,minmax(150px,1fr));gap:12px;align-items:center}
+.filter-input,.filter-select{width:100%;padding:11px 13px;border:1px solid var(--line);border-radius:9px;background:var(--bg);color:var(--text);font:inherit;font-size:13px;outline:none}
+.filter-input:focus,.filter-select:focus{border-color:var(--accent)}
+.filter-result{margin:11px 0 0;color:var(--muted);font-size:12px}
+.no-results{display:none;padding:30px 0;color:var(--muted);text-align:center;border-bottom:1px solid var(--line)}
+@media(max-width:760px){.filter-row{grid-template-columns:1fr}.publication-filters{padding:15px}}
+
 </style>
 </head>
 <body>
@@ -57,6 +66,15 @@
 <section class="section">
 <div class="section-heading">
 <div><p class="eyebrow">Complete list</p><h2>Journal Publications</h2></div>
+</div>
+<div class="publication-filters">
+  <div class="filter-row">
+    <input id="pubSearch" class="filter-input" type="search" placeholder="Search title, journal, DOI, author position..." aria-label="Search journal publications">
+    <select id="yearFilter" class="filter-select" aria-label="Filter by year"><option value="all">All years</option></select>
+    <select id="authorFilter" class="filter-select" aria-label="Filter by author position"><option value="all">All author positions</option></select>
+    <select id="quartileFilter" class="filter-select" aria-label="Filter by Scopus quartile"><option value="all">All quartiles</option></select>
+  </div>
+  <p id="filterResult" class="filter-result"></p>
 </div>
 <div class="publication-list">
     <article class="publication-entry journal-entry">
@@ -394,5 +412,36 @@
 </footer>
 
 <script src="script.js"></script>
+<script>
+(function(){
+  const list=document.querySelector('.publication-list');
+  const items=[...document.querySelectorAll('.journal-entry')];
+  const search=document.getElementById('pubSearch');
+  const year=document.getElementById('yearFilter');
+  const author=document.getElementById('authorFilter');
+  const quartile=document.getElementById('quartileFilter');
+  const result=document.getElementById('filterResult');
+  const values=(selector)=>[...new Set(items.map(x=>x.querySelector(selector)?.textContent.trim()).filter(Boolean))];
+  values('.pub-year').sort((a,b)=>b.localeCompare(a)).forEach(v=>year.insertAdjacentHTML('beforeend',`<option value="${v}">${v}</option>`));
+  values('.pub-number').sort().forEach(v=>author.insertAdjacentHTML('beforeend',`<option value="${v}">${v}</option>`));
+  values('.quartile-badge, p strong').filter(v=>/^Q[1-4]$|^Non[- ]Scopus$/i.test(v)).sort((a,b)=>a.localeCompare(b)).forEach(v=>quartile.insertAdjacentHTML('beforeend',`<option value="${v.toLowerCase()}">${v}</option>`));
+  const noResults=document.createElement('div'); noResults.className='no-results'; noResults.id='noResults'; noResults.textContent='No journal publications match your search or filters.'; list.appendChild(noResults);
+  function apply(){
+    const q=search.value.trim().toLowerCase(), y=year.value, a=author.value, ql=quartile.value; let shown=0;
+    items.forEach(item=>{
+      const text=item.textContent.toLowerCase();
+      const iy=item.querySelector('.pub-year')?.textContent.trim()||'';
+      const ia=item.querySelector('.pub-number')?.textContent.trim()||'';
+      const ib=item.querySelector('.quartile-badge')?.textContent.trim()||item.textContent.match(/Scopus quartile:\s*(Non[- ]Scopus)/i)?.[1]||'';
+      const ok=(!q||text.includes(q))&&(y==='all'||iy===y)&&(a==='all'||ia===a)&&(ql==='all'||ib.toLowerCase()===ql);
+      item.style.display=ok?'grid':'none'; if(ok)shown++;
+    });
+    noResults.style.display=shown?'none':'block'; result.textContent=`Showing ${shown} of ${items.length} publications`;
+  }
+  [search,year,author,quartile].forEach(el=>el.addEventListener('input',apply));
+  [year,author,quartile].forEach(el=>el.addEventListener('change',apply));
+  apply();
+})();
+</script>
 </body>
 </html>
