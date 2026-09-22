@@ -1,31 +1,9 @@
-# Dr. Suresh Palarimath – Academic Website
+# Dr. Suresh Palarimath — Multi-Page Academic Website
 
-GitHub Pages website for Dr. Suresh Palarimath.
+Pages: Home, About, Research, Publications, Books, Patents, Experience, Education, Achievements, Teaching, Contact.
 
-## Main files
+The `experience.html` page is structured to match the supplied Experience & qualifications screenshot: two columns, Current roles, Previous leadership, Education, and Leadership & service.
 
-- `index.html` – website content
-- `style.css` – responsive design
-- `script.js` – navigation, dark mode and current year
-- `assets/Dr-Suresh-Palarimath-CV.pdf` – downloadable CV
+Keep your existing `assets/profile-photo.png` and `assets/Dr-Suresh-Palarimath-CV.pdf` when replacing the current website files.
 
-## Publish
-
-Repository name:
-
-`SureshPalarimath.github.io`
-
-GitHub Pages source:
-
-`main` branch → `/ (root)`
-
-Website:
-
-`https://sureshpalarimath.github.io/`
-
-## Academic profiles
-
-- LinkedIn: https://www.linkedin.com/in/sureshpalarimath/
-- Google Scholar: https://scholar.google.com/citations?user=AJLEDX4AAAAJ&hl=en
-- Scopus: https://www.scopus.com/authid/detail.uri?authorId=57487917700
-- ORCID: https://orcid.org/0000-0002-3099-3926
+After copying these files into your cloned repository, commit and push with GitHub Desktop.
