@@ -1,1 +1,227 @@
-<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="description" content="Academic profile of Dr. Suresh Palarimath"><title>About | Dr. Suresh Palarimath</title><link rel="stylesheet" href="style.css"></head><body><nav class="site-nav"><div class="nav-inner"><a class="brand" href="index.html">Dr. Suresh Palarimath</a><button class="menu-toggle">☰</button><div class="nav-links"><a href="index.html">Home</a><a href="about.html">About</a><a href="research.html">Research</a><a href="publications.html">Publications</a><a href="books.html">Books</a><a href="patents.html">Patents</a><a href="experience.html">Experience &amp; Qualifications</a><a href="achievements.html">Achievements</a><a href="teaching.html">Teaching</a><a href="contact.html">Contact</a></div><button class="theme-toggle">◐</button></div></nav><main><section class="page-header"><p class="eyebrow">Profile</p><h1>About</h1><p>PLACEHOLDER — Add your detailed professional profile here.</p></section><section class="section two-col"><div class="content-card"><h2>Professional Summary</h2><p>PLACEHOLDER — Add your professional summary.</p><p>PLACEHOLDER — Add key academic leadership and international experience.</p></div><div class="content-card"><h2>Research Interests</h2><ul><li>PLACEHOLDER — Research area 1</li><li>PLACEHOLDER — Research area 2</li><li>PLACEHOLDER — Research area 3</li><li>PLACEHOLDER — Research area 4</li></ul></div></section></main><footer class="site-footer">© <span id="year"></span> Dr. Suresh Palarimath. All rights reserved.</footer><script src="script.js"></script></body></html>
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="About Dr. Suresh Palarimath, Computer Science academic, researcher and educator.">
+  <title>About | Dr. Suresh Palarimath</title>
+  <link rel="stylesheet" href="style.css">
+  <style>
+    .about-profile {
+      display: grid;
+      grid-template-columns: 170px 1fr;
+      gap: 32px;
+      align-items: center;
+      margin-bottom: 56px;
+    }
+
+    .about-photo {
+      width: 170px;
+      height: 170px;
+      border-radius: 50%;
+      overflow: hidden;
+      border: 1px solid var(--line);
+      background: var(--surface-2);
+    }
+
+    .about-photo img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    .about-profile-text h2 {
+      margin: 0 0 10px;
+    }
+
+    .about-profile-text p {
+      margin: 0 0 8px;
+    }
+
+    .about-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 24px;
+    }
+
+    .about-card {
+      padding: 30px 28px;
+      border: 1px solid var(--line);
+      border-radius: 14px;
+      background: var(--surface);
+    }
+
+    .about-card h2 {
+      margin-top: 0;
+      margin-bottom: 24px;
+    }
+
+    .about-card p:last-child {
+      margin-bottom: 0;
+    }
+
+    .interest-list {
+      margin: 0;
+      padding-left: 22px;
+    }
+
+    .interest-list li {
+      margin-bottom: 11px;
+    }
+
+    .about-highlights {
+      margin-top: 24px;
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 14px;
+    }
+
+    .highlight {
+      padding: 18px;
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      background: var(--surface-2);
+    }
+
+    .highlight strong {
+      display: block;
+      font-size: 22px;
+      margin-bottom: 4px;
+    }
+
+    .highlight span {
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    @media (max-width: 800px) {
+      .about-profile {
+        grid-template-columns: 1fr;
+        text-align: center;
+      }
+
+      .about-photo {
+        margin: 0 auto;
+      }
+
+      .about-grid,
+      .about-highlights {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+<nav class="site-nav">
+  <div class="nav-inner">
+    <a class="brand" href="index.html">Dr. Suresh Palarimath</a>
+
+    <button class="menu-toggle" type="button" aria-label="Open menu">☰</button>
+
+    <div class="nav-links">
+      <a href="index.html">Home</a>
+      <a href="about.html" class="active">About</a>
+      <a href="teaching.html">Teaching</a>
+      <a href="research.html">Research</a>
+      <a href="experience.html">Experience &amp; Qualifications</a>
+      <a href="publications.html">Publications</a>
+      <a href="patents.html">Patents</a>
+      <a href="achievements.html">Achievements</a>
+      <a href="contact.html">Contact</a>
+    </div>
+
+    <button class="theme-toggle" type="button" aria-label="Toggle theme">◐</button>
+  </div>
+</nav>
+
+<main>
+
+  <section class="page-header">
+    <p class="eyebrow">PROFILE</p>
+    <h1>About</h1>
+    <p>Computer Science academic, researcher and educator with a focus on emerging technologies, applied research and student-centered learning.</p>
+  </section>
+
+  <section class="section">
+    <div class="about-profile">
+      <div class="about-photo">
+        <img src="assets/profile-photo.png" alt="Dr. Suresh Palarimath">
+      </div>
+
+      <div class="about-profile-text">
+        <p class="eyebrow">Academic Profile</p>
+        <h2>Dr. Suresh Palarimath</h2>
+        <p>Program Coordinator &amp; Lecturer, Computer Science / IT</p>
+        <p>University of Technology and Applied Sciences, Salalah, Oman</p>
+      </div>
+    </div>
+
+    <div class="about-grid">
+
+      <div class="about-card">
+        <h2>Professional Summary</h2>
+
+        <p>Dr. Suresh Palarimath is a Computer Science academic with over 18 years of international teaching and academic leadership experience across Oman, India and Papua New Guinea.</p>
+
+        <p>His academic work combines teaching, research, curriculum development, student supervision and institutional service. He has taught undergraduate and postgraduate courses in Artificial Intelligence, Machine Learning, Data Science, Data Structures, Computer Networks, Software Engineering, Cloud Computing, IoT and Cybersecurity.</p>
+
+        <p>He has secured more than $96,000 in research funding, published 76+ peer-reviewed articles, authored 26+ textbooks and holds 14 international patents. His experience also includes academic leadership, accreditation activities, academic advising and research supervision.</p>
+      </div>
+
+      <div class="about-card">
+        <h2>Research Interests</h2>
+
+        <ul class="interest-list">
+          <li>Artificial Intelligence &amp; Machine Learning</li>
+          <li>Artificial Intelligence in Education</li>
+          <li>Data Science and Intelligent Systems</li>
+          <li>Smart Campus Systems</li>
+          <li>IoT-based Intelligent and Assistive Technologies</li>
+          <li>Software Engineering and Emerging Technologies</li>
+          <li>Cybersecurity and applied computing</li>
+        </ul>
+      </div>
+
+    </div>
+
+    <div class="about-card" style="margin-top:24px;">
+      <h2>Teaching &amp; Academic Leadership</h2>
+
+      <p>Dr. Palarimath's teaching approach combines theoretical understanding with practical, project-oriented learning. His experience includes curriculum planning, accreditation, course coordination, student mentoring and supervision of research projects leading to publications and conference presentations.</p>
+
+      <p>He has also served in academic leadership roles, including Head of School and Head of Department, and currently contributes to student development and institutional academic activities at UTAS Salalah.</p>
+    </div>
+
+    <div class="about-highlights">
+      <div class="highlight">
+        <strong>18+</strong>
+        <span>Years of international academic experience</span>
+      </div>
+      <div class="highlight">
+        <strong>76+</strong>
+        <span>Peer-reviewed publications</span>
+      </div>
+      <div class="highlight">
+        <strong>26+</strong>
+        <span>Books &amp; textbooks</span>
+      </div>
+      <div class="highlight">
+        <strong>14</strong>
+        <span>International patents</span>
+      </div>
+    </div>
+
+  </section>
+
+</main>
+
+<footer class="site-footer">
+  © <span id="year"></span> Dr. Suresh Palarimath. All rights reserved.
+</footer>
+
+<script src="script.js"></script>
+</body>
+</html>
