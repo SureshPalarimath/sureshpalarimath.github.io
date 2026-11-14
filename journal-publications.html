@@ -158,9 +158,10 @@
       <span class="pub-year">2026</span>
       <div>
         <div class="pub-number">First author</div>
-        <h3>AI-Driven Organizational Transformation: Strategic Models for Achieving Sustainable Competitive Advantage</h3>
-        <p><strong>Journal:</strong> Power System Technology</p>
-        <p><strong>Scopus quartile:</strong> <span class="quartile-badge">Q1</span></p>
+        <h3>AI-DRIVEN ORGANIZATIONAL CHANGE: STRATEGIC TRANSFORMATION MODELS FOR SUSTAINABLE COMPETITIVE ADVANTAGE</h3>
+        <p><strong>Journal:</strong> Advanced Engineering Science</p>
+        <p><strong>Publisher:</strong> AES</p>
+        <p><strong>Scopus quartile:</strong> Not verified</p>
         
         <p><a href="https://powertechjournal.com/index.php/journal/article/view/3843" target="_blank" rel="noopener">View publication ↗</a></p>
       </div>
@@ -396,17 +397,6 @@
         <p><a href="https://jidps.com/2021/05/?post_type=paper_issue" target="_blank" rel="noopener">View publication ↗</a></p>
       </div>
     </article>
-	 <article class="publication-entry journal-entry">
-      <span class="pub-year">2020</span>
-      <div>
-        <div class="pub-number">Fourth author</div>
-        <h3>Roopa</h3>
-        <p><strong>Journal:</strong> J. Innov. Dev. Pharm. Tech. Sci</p>
-        <p><strong>Scopus quartile:</strong> Non-Scopus</p>
-        
-        <p><a href="https://jidps.com/2021/05/?post_type=paper_issue" target="_blank" rel="noopener">View publication ↗</a></p>
-      </div>
-    </article>
 </div>
 </section>
 
@@ -433,18 +423,58 @@
   const quartile=document.getElementById('quartileFilter');
   const result=document.getElementById('filterResult');
   const values=(selector)=>[...new Set(items.map(x=>x.querySelector(selector)?.textContent.trim()).filter(Boolean))];
-  values('.pub-year').sort((a,b)=>b.localeCompare(a)).forEach(v=>year.insertAdjacentHTML('beforeend',`<option value="${v}">${v}</option>`));
-  values('.pub-number').sort().forEach(v=>author.insertAdjacentHTML('beforeend',`<option value="${v}">${v}</option>`));
-  values('.quartile-badge, p strong').filter(v=>/^Q[1-4]$|^Non[- ]Scopus$/i.test(v)).sort((a,b)=>a.localeCompare(b)).forEach(v=>quartile.insertAdjacentHTML('beforeend',`<option value="${v.toLowerCase()}">${v}</option>`));
+  // Rebuild filter options from unique, normalized values to prevent duplicates.
+  const uniqueYears = [...new Set(items.map(item => {
+    const raw = item.querySelector('.pub-year')?.textContent.trim() || '';
+    const match = raw.match(/\\b(19|20)\\d{2}\\b/);
+    return match ? match[0] : '';
+  }).filter(Boolean))].sort((a,b)=>Number(b)-Number(a));
+
+  year.innerHTML = '<option value="all">All years</option>';
+  uniqueYears.forEach(v => year.add(new Option(v, v)));
+
+  const uniqueAuthors = [...new Set(items.map(item => item.querySelector('.pub-number')?.textContent.trim()).filter(Boolean))].sort();
+  author.innerHTML = '<option value="all">All author positions</option>';
+  uniqueAuthors.forEach(v => author.add(new Option(v, v)));
+
+  const getQuartile = (item) => {
+    const badge = item.querySelector('.quartile-badge')?.textContent.trim().toUpperCase();
+    if (badge && /^Q[1-4]$/.test(badge)) return badge;
+
+    const quartileLine = [...item.querySelectorAll('p')].find(p =>
+      /scopus\s*quartile/i.test(p.textContent)
+    );
+    if (!quartileLine) return '';
+
+    const value = quartileLine.textContent
+      .replace(/scopus\s*quartile\s*:/i, '')
+      .trim()
+      .replace(/\s+/g, ' ');
+
+    if (/^Q[1-4]$/i.test(value)) return value.toUpperCase();
+    if (/^non[\s-]*scopus$/i.test(value)) return 'Non-Scopus';
+    if (/^not[\s-]*verified$/i.test(value)) return 'Not verified';
+    return value;
+  };
+
+  const quartileOrder = ['Q1', 'Q2', 'Q3', 'Q4', 'Non-Scopus', 'Not verified'];
+  const uniqueQuartiles = [...new Set(items.map(getQuartile).filter(Boolean))]
+    .sort((a,b) => {
+      const ai = quartileOrder.indexOf(a), bi = quartileOrder.indexOf(b);
+      return (ai < 0 ? 99 : ai) - (bi < 0 ? 99 : bi) || a.localeCompare(b);
+    });
+
+  quartile.innerHTML = '<option value="all">All quartiles</option>';
+  uniqueQuartiles.forEach(v => quartile.add(new Option(v, v.toLowerCase())));
   const noResults=document.createElement('div'); noResults.className='no-results'; noResults.id='noResults'; noResults.textContent='No journal publications match your search or filters.'; list.appendChild(noResults);
   function apply(){
     const q=search.value.trim().toLowerCase(), y=year.value, a=author.value, ql=quartile.value; let shown=0;
     items.forEach(item=>{
-      const text=item.textContent.toLowerCase();
-      const iy=item.querySelector('.pub-year')?.textContent.trim()||'';
+      const text=(item.textContent+' '+getQuartile(item)).toLowerCase();
+      const iy=(item.querySelector('.pub-year')?.textContent.trim().match(/\\b(19|20)\\d{2}\\b/)||[])[0]||'';
       const ia=item.querySelector('.pub-number')?.textContent.trim()||'';
-      const ib=item.querySelector('.quartile-badge')?.textContent.trim()||item.textContent.match(/Scopus quartile:\s*(Non[- ]Scopus)/i)?.[1]||'';
-      const ok=(!q||text.includes(q))&&(y==='all'||iy===y)&&(a==='all'||ia===a)&&(ql==='all'||ib.toLowerCase()===ql);
+      const ib=getQuartile(item).toLowerCase();
+      const ok=(!q||text.includes(q))&&(y==='all'||iy===y)&&(a==='all'||ia===a)&&(ql==='all'||ib===ql);
       item.style.display=ok?'grid':'none'; if(ok)shown++;
     });
     noResults.style.display=shown?'none':'block'; result.textContent=`Showing ${shown} of ${items.length} publications`;
