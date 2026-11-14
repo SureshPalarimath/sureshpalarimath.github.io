@@ -38,14 +38,14 @@
 <main>
 <section class="page-header">
 <p class="eyebrow">Section 02</p>
-<h1>Conference Publications (36)</h1>
+<h1>Conference Publications (40)</h1>
 <p>Complete list of conference publications. The list below contains the records supplied for this section.</p>
 </section>
 
 <section class="section">
 <div class="pub-summary">
-<div><strong>36</strong><span>Conference Publications</span></div>
-<div><strong>2022–2026</strong><span>Publication Years</span></div>
+<div><strong>40</strong><span>Conference Publications</span></div>
+<div><strong>2020–2026</strong><span>Publication Years</span></div>
 <div><strong>IEEE / Springer / SSRN</strong><span>Publishers &amp; Platforms</span></div>
 </div>
 </section>
@@ -132,6 +132,24 @@
         <p><strong>Conference:</strong> 2025 2nd Asian Conference on Intelligent Technologies (ACOIT)</p>
         <p><strong>Publisher:</strong> IEEE Xplore</p>
         <p><span><strong>DOI:</strong> [10.1109/ACOIT66109.2025.11436435](https://doi.org/10.1109/ACOIT66109.2025.11436435)</span> &nbsp; <a class="text-link" href="https://ieeexplore.ieee.org/abstract/document/11436435" target="_blank" rel="noopener">View publication ↗</a></p>
+      </div>
+    </article>
+<article class="publication-entry conference-entry">
+      <span class="pub-year">2026</span>
+      <div>
+        <div class="pub-number">Fourth author</div>
+        <h3>Feature-Level Data Fusion based Deep Learning for Soil Moisture Prediction using Multi-Source Satellite Data</h3>
+        <p><strong>Conference:</strong> 2026 4th International Conference on Sustainable Computing and Smart Systems (ICSCSS)</p>
+        <p><strong>Publisher:</strong> IEEE Xplore</p>
+      </div>
+    </article>
+<article class="publication-entry conference-entry">
+      <span class="pub-year">2026</span>
+      <div>
+        <div class="pub-number">First author</div>
+        <h3>Edge AI and Blockchain-Based Spatiotemporal Graph Transformer for Real-Time Air Quality Monitoring</h3>
+        <p><strong>Conference:</strong> 2026 3rd International Conference on Trends in Engineering Systems and Technologies (ICTEST)</p>
+        <p><strong>Publisher:</strong> IEEE Xplore</p>
       </div>
     </article>
     <article class="publication-entry conference-entry">
@@ -384,6 +402,15 @@
         <p><span><strong>DOI:</strong> 10.1109/ICEECT61758.2024.10739034</span> &nbsp; <a class="text-link" href="https://ieeexplore.ieee.org/abstract/document/10739034" target="_blank" rel="noopener">View publication ↗</a></p>
       </div>
     </article>
+<article class="publication-entry conference-entry">
+      <span class="pub-year">2024</span>
+      <div>
+        <div class="pub-number">Third author</div>
+        <h3>Advancing brain image segmentation: Enhanced VGG16 architecture</h3>
+        <p><strong>Conference:</strong> International Conference on Computing and Data Analytics (ICCDA)</p>
+        <p><strong>Publisher:</strong> IEEE Xplore</p>
+      </div>
+    </article>
     <article class="publication-entry conference-entry">
       <span class="pub-year">2023</span>
       <div>
@@ -424,6 +451,15 @@
         <p><span><strong>DOI:</strong> 10.1109/ICESC54411.2022.9885371</span> &nbsp; <a class="text-link" href="https://ieeexplore.ieee.org/abstract/document/9885371" target="_blank" rel="noopener">View publication ↗</a></p>
       </div>
     </article>
+<article class="publication-entry conference-entry">
+      <span class="pub-year">2020</span>
+      <div>
+        <div class="pub-number">Fourth author</div>
+        <h3>Transforming Traditional Agriculture into Artificial Intelligence based Agriculture</h3>
+        <p><strong>Conference:</strong> NCGCE’20, National Conference on Innovations and Challenges in Geotechnical Engineering, Computer Science and VLSI, IES College of Engineering, Thrissur, India</p>
+        <p><strong>Publisher:</strong> Not specified</p>
+      </div>
+    </article>
 </div>
 </section>
 
@@ -442,22 +478,45 @@
   const author=document.getElementById('authorFilter');
   const publisher=document.getElementById('publisherFilter');
   const result=document.getElementById('filterResult');
-  const values=(selector)=>[...new Set(items.map(x=>x.querySelector(selector)?.textContent.trim()).filter(Boolean))];
-  values('.pub-year').sort((a,b)=>b.localeCompare(a)).forEach(v=>year.insertAdjacentHTML('beforeend',`<option value="${v}">${v}</option>`));
-  values('.pub-number').sort().forEach(v=>author.insertAdjacentHTML('beforeend',`<option value="${v}">${v}</option>`));
-  [...new Set(items.map(item=>[...item.querySelectorAll('p')].find(p=>/^Publisher:/i.test(p.textContent))?.textContent.replace(/^Publisher:\s*/i,'').trim()).filter(Boolean))].sort().forEach(v=>publisher.insertAdjacentHTML('beforeend',`<option value="${v.replace(/&/g,'&amp;').replace(/"/g,'&quot;')}">${v}</option>`));
-  const noResults=document.createElement('div'); noResults.className='no-results'; noResults.id='noResults'; noResults.textContent='No conference publications match your search or filters.'; list.appendChild(noResults);
+
+  const getYear=item=>{
+    const raw=item.querySelector('.pub-year')?.textContent.trim()||'';
+    return (raw.match(/\b(19|20)\d{2}\b/)||[])[0]||'';
+  };
+  const getAuthor=item=>item.querySelector('.pub-number')?.textContent.trim()||'';
+  const getPublisher=item=>{
+    const p=[...item.querySelectorAll('p')].find(p=>/^Publisher:/i.test(p.textContent));
+    return p?p.textContent.replace(/^Publisher:\s*/i,'').trim().replace(/\s+/g,' '):'';
+  };
+
+  const years=[...new Set(items.map(getYear).filter(Boolean))].sort((a,b)=>Number(b)-Number(a));
+  year.innerHTML='<option value="all">All years</option>';
+  years.forEach(v=>year.add(new Option(v,v)));
+
+  const authors=[...new Set(items.map(getAuthor).filter(Boolean))].sort();
+  author.innerHTML='<option value="all">All author positions</option>';
+  authors.forEach(v=>author.add(new Option(v,v)));
+
+  const publishers=[...new Set(items.map(getPublisher).filter(Boolean))].sort((a,b)=>a.localeCompare(b));
+  publisher.innerHTML='<option value="all">All publishers</option>';
+  publishers.forEach(v=>publisher.add(new Option(v,v)));
+
+  const noResults=document.createElement('div');
+  noResults.className='no-results';
+  noResults.textContent='No conference publications match your search or filters.';
+  list.appendChild(noResults);
+
   function apply(){
-    const q=search.value.trim().toLowerCase(), y=year.value, a=author.value, pub=publisher.value; let shown=0;
+    const q=search.value.trim().toLowerCase(), y=year.value, a=author.value, pub=publisher.value;
+    let shown=0;
     items.forEach(item=>{
       const text=item.textContent.toLowerCase();
-      const iy=item.querySelector('.pub-year')?.textContent.trim()||'';
-      const ia=item.querySelector('.pub-number')?.textContent.trim()||'';
-      const ip=[...item.querySelectorAll('p')].find(p=>/^Publisher:/i.test(p.textContent))?.textContent.replace(/^Publisher:\s*/i,'').trim()||'';
-      const ok=(!q||text.includes(q))&&(y==='all'||iy===y)&&(a==='all'||ia===a)&&(pub==='all'||ip===pub);
-      item.style.display=ok?'grid':'none'; if(ok)shown++;
+      const ok=(!q||text.includes(q))&&(y==='all'||getYear(item)===y)&&(a==='all'||getAuthor(item)===a)&&(pub==='all'||getPublisher(item)===pub);
+      item.style.display=ok?'grid':'none';
+      if(ok)shown++;
     });
-    noResults.style.display=shown?'none':'block'; result.textContent=`Showing ${shown} of ${items.length} publications`;
+    noResults.style.display=shown?'none':'block';
+    result.textContent=`Showing ${shown} of ${items.length} publications`;
   }
   [search,year,author,publisher].forEach(el=>el.addEventListener('input',apply));
   [year,author,publisher].forEach(el=>el.addEventListener('change',apply));
