@@ -5,8 +5,8 @@
 const SITE = {
   "publications": 83,
   "citations": 430,
-  "hIndex": 10,
-  "i10Index": 10,
+  "hIndex": 11,
+  "i10Index": 11,
   "textbooks": 26,
   "patents": 14,
   "funding": "$104K+",
